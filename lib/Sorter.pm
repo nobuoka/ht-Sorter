@@ -1,11 +1,5 @@
-# implement this
-
 use strict;
 use warnings;
-
-my $test = { "good" => { "test" => 5 } };
-my %h = %{$test->{"good"}};
-print $h{"test"} . "\n";
 
 package Sorter;
 
@@ -34,6 +28,8 @@ sub get_values {
     my $self = shift;
     return @{$self->{"values"}};
 }
+
+# ---- library private functions ----
 
 sub _sort_by_quick_sort {
     my ( $aref, $bidx, $eidx ) = @_;
