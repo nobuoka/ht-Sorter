@@ -5,7 +5,7 @@ package Sorter;
 
 sub new {
     my $class = shift;
-    return bless {
+    bless {
         "values" => []
     }, $class;
 }
@@ -15,12 +15,17 @@ sub set_values {
     $self->{"values"} = [@_];
 }
 
+sub add_values {
+    my $self = shift;
+    push @{$self->{"values"}}, @_;
+}
+
 sub sort {
     my $self = shift;
     #$self->{"values"} = [ sort{ $a <=> $b }( @{$self->{"values"}} ) ];
     my $len = @{$self->{"values"}};
     if( $len > 1 ) {
-        _sort_by_quick_sort( $self->{"values"}, 0, $len - 1 );
+        $self->_sort_by_quick_sort( $self->{"values"}, 0, $len - 1 );
     }
 }
 
@@ -29,9 +34,10 @@ sub get_values {
     return @{$self->{"values"}};
 }
 
-# ---- library private functions ----
+# ---- library private methods ----
 
 sub _sort_by_quick_sort {
+    my $self = shift;
     my ( $aref, $bidx, $eidx ) = @_;
     # 要素数が 1 の場合
     if( $bidx == $eidx ) {
@@ -57,8 +63,8 @@ sub _sort_by_quick_sort {
             $i2 = $i + 1;
             $j2 = $j - 1;
         } else {
-            &_sort_by_quick_sort( $aref, $bidx, $i - 1 );
-            &_sort_by_quick_sort( $aref, $i, $eidx );
+            $self->_sort_by_quick_sort( $aref, $bidx, $i - 1 );
+            $self->_sort_by_quick_sort( $aref, $i, $eidx );
             last;
         }
     }

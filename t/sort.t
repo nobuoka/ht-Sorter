@@ -23,6 +23,20 @@ sub values : Tests {
     is_deeply [$sorter->get_values], [1,2,3,4,5];
 }
 
+sub can_add_values : Tests {
+    my $sorter = Sorter->new;
+    is_deeply [$sorter->get_values], [];
+
+    $sorter->add_values;
+    is_deeply [$sorter->get_values], [];
+
+    $sorter->add_values(1);
+    is_deeply [$sorter->get_values], [1];
+
+    $sorter->add_values(2,3,4,5);
+    is_deeply [$sorter->get_values], [1,2,3,4,5];
+}
+
 sub sort : Tests {
     my $sorter = Sorter->new;
     $sorter->sort;
